@@ -26,4 +26,26 @@ public abstract class Item {
     private List<Category> categories = new ArrayList<>();
 
 
+    //== 비지니스 로직==//
+    // 데이터를 가지고 있는 곳에서 비지니스 로직이 나가는게 응집도가 있다.
+    /**
+     * stock 증가
+     *
+     */
+    public void addStock(int quantity) {
+        this.stockQuantity += quantity;
+    }
+
+    /**
+     *
+     * stock 감소
+     * 0보다 줄으면 안된다.
+     */
+    public void removeStock(int quantity) {
+        int restStock = this.stockQuantity - quantity;
+        if(restStock < 0) {
+            throw new NotEnoughStockException("need more stock");
+        }
+        this.stockQuantity = restStock;
+    }
 }
