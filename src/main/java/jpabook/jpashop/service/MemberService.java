@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * @Author : Gilho Lee
+ */
 @Service
 @Transactional(readOnly = true) // 이게 디폴트
 @RequiredArgsConstructor
