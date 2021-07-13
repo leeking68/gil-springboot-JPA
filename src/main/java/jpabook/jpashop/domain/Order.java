@@ -46,6 +46,18 @@ public class Order {
         delivery.setOrder(this);
     }
 
+    //== 생성 메서드 ==//
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+        Order order = new Order();
+        order.setMember(member);
+        order.setDelivery(delivery);
+        for(OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+        order.setStatus(OrderStatus.ORDER); //처음 상태를 Order 강제로 넣기
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
 
 
 
