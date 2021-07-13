@@ -76,5 +76,19 @@ public class Order {
         }
     }
 
+    //== 조회 로직 ==// 뭔가 계산이 필요할때
+
+    /**
+     * 전체 주문 조회
+     * @return
+     */
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        for(OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getTotalPrice();
+        }
+        return totalPrice;
+    }
+
 
 }

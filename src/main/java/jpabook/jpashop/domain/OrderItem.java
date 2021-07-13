@@ -32,4 +32,9 @@ public class OrderItem {
     public void cancel() {
         getItem().addStock(count);
     }
+
+    //주문할때 주문 가겨과 주문 수량이 곱해져야한다. 그러므로 필요하다.
+    public int getTotalPrice() {
+        return getOrderPrice() & count;
+    }
 }
