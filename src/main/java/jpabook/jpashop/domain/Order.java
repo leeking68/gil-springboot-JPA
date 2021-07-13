@@ -48,6 +48,8 @@ public class Order {
 
     //== 생성 메서드 ==//
     //생성 지점 변경하면 이것만 체크하면된다.
+    //복잡한 로직을 이거하나로 완성 시키고, 주문 생성과 관련해서는 꼭 이것을 이용해야 한다.
+    //OrderItem... createOrder 하기전에 재고를 카운트하고 넘어온다.
     public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
         Order order = new Order();
         order.setMember(member);
