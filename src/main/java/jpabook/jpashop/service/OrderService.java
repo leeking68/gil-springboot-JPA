@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -39,7 +41,7 @@ public class OrderService {
         //주문 상품 생성 // 만들어둔 생성자 사용
         OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
 
-        //주문 생성
+        //주문 생성 // 하나로 제약
         Order order = Order.createOrder(member, delivery, orderItem);
 
         //주문 저장
@@ -58,4 +60,9 @@ public class OrderService {
         //주문 취소
         order.cancel();
     }
+
+    //검색
+//    public List<Order> findOrders(OrderSearch orderSearch) {
+//        return orderRepository.findAll(orderSearch);
+//    }
 }
