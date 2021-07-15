@@ -6,6 +6,7 @@ import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
+import jpabook.jpashop.exception.NotEnoughStockException;
 import jpabook.jpashop.repository.OrderRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,16 +32,9 @@ public class OrderServiceTest {
     @Test
     public void 상품주문()  throws Exception {
         //given
-        Member member =  new Member();
-        member.setName("회원1");
-        member.setAddress(new Address("서울","강가","123-123"));
-        em.persist(member);
+        Member member = createMember();
 
-        Book book = new Book();
-        book.setName("시골 JPA");
-        book.setPrice(10000);
-        book.setStockQuantity(10);
-        em.persist(book);
+        Book book = createBook();
 
         int orderCount = 2;
 
@@ -55,6 +49,19 @@ public class OrderServiceTest {
         Assert.assertEquals("주문한 상품 종류 수가 정확해야 한다. ", 1, getOrder.getOrderItems().size());
         Assert.assertEquals("주문 가격은 가격 * 수량이다. ", 10000*orderCount, getOrder.getTotalPrice());
         Assert.assertEquals("주문 수량만큼 재고가 줄어야 한다. ", 8, book.getStockQuantity());
+    }
+
+
+
+    @Test(expected = NotEnoughStockException.class)//만들어둔 예외
+    public void 상품주문_재고소량초과()  throws Exception {
+        //given
+        Member member = createMember();
+
+        //when
+
+        //then
+
     }
 
     @Test
@@ -77,6 +84,22 @@ public class OrderServiceTest {
 
     }
 
+    private Book createBook() {
+        Book book = new Book();
+        book.setName("시골 JPA");
+        book.setPrice(10000);
+        book.setStockQuantity(10);
+        em.persist(book);
+        return book;
+    }
+
+    private Member createMember() {
+        Member member = new Member();
+        member.setName("회원1");
+        member.setAddress(new Address("서울", "강가", "123-123"));
+        em.persist(member);
+        return member;
+    }
 
 
 }
