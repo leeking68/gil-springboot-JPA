@@ -42,7 +42,10 @@ public List<Order> ordersV1() {
 
 @GetMapping("/api/v2/simple-orders")
 public List<SimpleOrderDto> ordersV2() {
-    List<Order> orders = orderRepository.findAllByString(new OrderSearch());
+    //Order 2개
+    //N +1 -> 1+ 회원 N + 배송 N
+    List<Order> orders = orderRepository.findAllByString(new OrderSearch()); // 첫번쨰 쿼리
+
     List<SimpleOrderDto> result = orders.stream().map(o -> new SimpleOrderDto(o)).collect(Collectors.toList());
     return result;
 
