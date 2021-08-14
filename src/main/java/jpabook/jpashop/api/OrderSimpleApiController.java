@@ -51,6 +51,13 @@ public List<SimpleOrderDto> ordersV2() {
 
 }
 
+public List<SimpleOrderDto> ordersV3() {
+    List<Order> orders = orderRepository.findAllWithMemberDelivery();
+    List<SimpleOrderDto> result = orders.stream().map(o -> new SimpleOrderDto(o)).collect(Collectors.toList());
+    return result;
+}
+
+
     @Data
     static class SimpleOrderDto {
         private Long orderId;

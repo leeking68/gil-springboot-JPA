@@ -133,4 +133,14 @@ public class OrderRepository {
         }
         return query.getResultList();
     }
+
+    //Fetch Join 한번에 다가지고 온다
+    // Order 에 쿼리를 날렸을때 한번에 가지고온다.
+    public List<Order> findAllWithMemberDelivery() {
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class)
+                .getResultList();
+    }
 }
